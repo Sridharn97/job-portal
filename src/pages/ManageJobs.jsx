@@ -6,17 +6,15 @@ import { useContext } from 'react'
 import { AppContext } from '../Context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import Loading from '../Components/Loading'
 
 
 const ManageJobs = () => {
     const navigate=useNavigate()
-    const [jobs, setJobs] = useState(false);
+    const [jobs, setJobs] = useState([]);
 
     const { backendUrl, companyToken } = useContext(AppContext);
 
 
-    //Function to Fetch Company Jobs Applicaation Data
     const fetchCompanyJobs=async()=>{
         try {
             const {data}=await axios.get(backendUrl+'/api/company/list-jobs',
@@ -32,7 +30,7 @@ const ManageJobs = () => {
             toast.error(error.message)
         }
     }
-    //Function to change Job Visibility
+
     const changeJobVisibility=async(id)=>{
         try {
             const{data}=await axios.post(backendUrl+'/api/company/change-visibility',
@@ -55,9 +53,7 @@ const ManageJobs = () => {
         }
     }, [companyToken]);
     
-  return jobs ? jobs.length===0 ?(<div>
-    <p className='text-sl sm:text-2xl'>NO Jobs Available</p>
-  </div>): (
+  return (
     <div className='container p-4 max-w-5xl'>
         <div className='overflow-x-auto'>
             <table className='min-w-full bg-white border border-gray-200 max-sm:text-sm'>
@@ -92,7 +88,7 @@ const ManageJobs = () => {
             <button onClick={()=>navigate('/dashboard/add-job')}className='bg-black text-white py-2 px-4 rounded'>Add New Job</button>
         </div>
     </div>
-  ):<Loading/>
+  )
 }
 
 export default ManageJobs

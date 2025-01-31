@@ -88,4 +88,27 @@
   .rich-text li {
     margin-bottom: 8px;
   }
-  
+  .logos-container {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.logo-item {
+    animation: roll 20s linear infinite;
+    margin-right: 20px;
+}
+
+@keyframes roll {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.logos-container:hover .logo-item {
+    animation-play-state: paused;
+}
