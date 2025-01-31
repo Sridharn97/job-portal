@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const App = () => {
-  const { showRecruiterLogin } = useContext(AppContext);
+  const { showRecruiterLogin ,companyToken} = useContext(AppContext);
 
   return (
     <div>
@@ -30,9 +30,13 @@ const App = () => {
 
         {/* Nested Dashboard Routes */}
         <Route path="/dashboard" element={<Dashboard />}>
+        {companyToken ? <>
           <Route path="add-job" element={<AddJob />} />
           <Route path="manage-jobs" element={<ManageJobs />} />
           <Route path="view-applications" element={<ViewApplication />} />
+        </>:null
+        }
+          
         </Route>
       </Routes>
     </div>

@@ -1,32 +1,54 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { assets } from '../assets/assets';
-import { NavLink } from 'react-router-dom';
-
+import { NavLink ,useNavigate} from 'react-router-dom';
+import { AppContext } from '../Context/AppContext';
+import { useContext } from 'react';
 const Dashboard = () => {
+  const navigate=useNavigate()
+  const{companyData,setCompanyData,setCompanyToken}=useContext(AppContext)
+  //Function to Logout for Company
+  const logout=()=>{
+    setCompanyToken(null)
+    localStorage.removeItem('companyToken')
+    setCompanyData(null)
+    navigate('/')
+  }
+  useEffect(()=>{
+      if(companyData){
+        navigate('/dashboard/manage-jobs')
+      }
+  },[companyData])
+
   return (
+
   
     <div className="min-h-screen">
       {/* Navbar for recruiter Panel */}
       <div className="shadow py-4">
         <div className="px-5 flex justify-between items-center">  
-          <img className="max-sm:w-32 cursor-pointer" src={assets.logo} alt="Company Logo" />
-          <div className="flex items-center gap-3">
-            <p className="hidden sm:hidden display:block">Welcome, Google</p>
-            <div className="relative group">
-          
-              <img
-                className="w-8 border rounded-full cursor-pointer"
-                src={assets.company_icon}
-                alt="Company Icon"
-              />           
-              <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded  pt-12">
-                <ul className="list-none m-0 p-2 text-sm">
-                  <li className="py-1 px-2 cursor-pointer hover:bg-gray-100">Logout</li>
-                </ul>
+          <img onClick={e=>navigate('/')}className="max-sm:w-32 cursor-pointer" src={assets.logo} alt="" />
+          {
+             companyData &&(
+              <div className="flex items-center gap-3">  
+            <p className="hidden sm:block text-gray-800">Welcome, {companyData.name}</p>
+              <div className="relative group">
+            
+                <img
+                  className="w-10 h-10 border rounded-full cursor-pointer"
+                  src={companyData.image}
+                  alt=""
+                />           
+                <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded  pt-12">
+                  <ul className="list-none m-0 p-2 text-sm">
+                    <li onClick={logout} className="py-1 px-2 cursor-pointer hover:bg-gray-100">Logout</li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
+             )
+            }
+       
         </div>
         <div className='flex items-start'>
          {/* Left Side bar with options to add job manage job, veiw application */}
@@ -47,7 +69,7 @@ const Dashboard = () => {
                
             </ul>
          </div>
-         <div>
+         <div className='flex-1 h-full p-2 sm:p-5'>
             <Outlet/>
 
           
