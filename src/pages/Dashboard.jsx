@@ -12,6 +12,7 @@ const Dashboard = () => {
     localStorage.removeItem("companyToken");
     setCompanyData(null);
     navigate("/");
+    
   };
 
   useEffect(() => {
