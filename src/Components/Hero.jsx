@@ -40,7 +40,7 @@ const Hero = () => {
                 <button onClick={onSearch} className='bg-blue-600 px-6 py-2 rounded text-white m-1'>Search</button>
             </div>
         </div>
-        <div className="border border-gray-300 shadow-lg mx-2 mt-5 p-6 rounded-md flex bg-white">
+      <div className="border border-gray-300 shadow-lg mx-2 mt-5 p-6 rounded-md flex bg-white">
   <div className="logos-container flex justify-center gap-10 lg:gap-16 flex-wrap">
     <p className="font-medium text-gray-700">Supported by</p>
     <img className="h-6 logo-item transform transition duration-300 hover:scale-110 hover:shadow-2xl hover:-translate-y-1" src={assets.microsoft_logo} alt="Microsoft" />
